@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.ktor)
     application
 }
 
@@ -8,9 +9,13 @@ repositories {
 }
 
 dependencies {
-    testImplementation(libs.junit.jupiter)
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation(libs.guava)
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.config.yaml)
+    testImplementation(libs.kotest.runner.junit5)
+    testImplementation(libs.kotest.extensions.ktor)
+    testImplementation(libs.ktor.server.test.host)
+    testImplementation(libs.mockk)
 }
 
 java {
@@ -19,10 +24,14 @@ java {
     }
 }
 
-application {
-    mainClass = "org.example.AppKt"
+kotlin {
+    jvmToolchain(21)
 }
 
-tasks.named<Test>("test") {
+application {
+    mainClass = "io.ktor.server.netty.EngineMain"
+}
+
+tasks.test {
     useJUnitPlatform()
 }
