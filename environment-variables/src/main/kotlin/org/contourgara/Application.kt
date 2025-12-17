@@ -11,7 +11,7 @@ fun main(args: Array<String>): Unit = EngineMain.main(args)
 fun Application.module() {
     routing {
         get("/") {
-            call.respondText { "Hello!" }
+            call.respondText { RespondEnvService().execute() }
         }
     }
 }

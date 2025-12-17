@@ -3,5 +3,5 @@
 ## Execute
 
 ```shell
-./gradlew clean environment-variables:run
+ENVIRONMENT_VARIABLES_ENV=dev ./gradlew clean environment-variables:run
 ```
