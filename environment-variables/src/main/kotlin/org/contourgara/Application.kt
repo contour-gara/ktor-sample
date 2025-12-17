@@ -9,9 +9,11 @@ import io.ktor.server.routing.routing
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 fun Application.module() {
+    val appConfig = AppConfig.from(applicationConfig = environment.config)
+
     routing {
         get("/") {
-            call.respondText { RespondEnvService().execute() }
+            call.respondText { RespondEnvService(appConfig = appConfig).execute() }
         }
     }
 }
