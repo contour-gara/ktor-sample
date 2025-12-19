@@ -36,3 +36,25 @@ application {
 tasks.test {
     useJUnitPlatform()
 }
+
+ktor {
+    fatJar {
+        archiveFileName.set("${project.name}.jar")
+    }
+}
+
+tasks.jar {
+    archiveFileName.set("${project.name}-plain.jar")
+    manifest {
+        attributes(
+            "Main-Class" to "io.ktor.server.netty.EngineMain",
+            "Class-Path" to configurations.runtimeClasspath.get().files.joinToString(" ") { "lib/${it.name}" }
+        )
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.register<Copy>("copyDependencies") {
+    from(configurations.runtimeClasspath)
+    into(layout.buildDirectory.dir("lib"))
+}
