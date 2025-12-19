@@ -19,7 +19,6 @@ dependencies {
     testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.kotest.extensions.ktor)
     testImplementation(libs.ktor.server.test.host)
-    testImplementation(libs.mockk)
 }
 
 java {
