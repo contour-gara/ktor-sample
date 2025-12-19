@@ -32,9 +32,19 @@ kotlin {
 }
 
 application {
-    mainClass = "io.ktor.server.netty.EngineMain"
+    mainClass.set("io.ktor.server.netty.EngineMain")
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("${project.name}.jar")
+    }
+}
+
+tasks.jar {
+    archiveFileName.set("${project.name}-plain.jar")
 }
