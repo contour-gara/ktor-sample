@@ -1,0 +1,6 @@
+FROM gcr.io/distroless/java21-debian12:nonroot
+WORKDIR /deployments
+ARG JAR_FILE=build/libs/distroless.jar
+COPY --chown=nonroot:nonroot ${JAR_FILE} app.jar
+
+CMD ["app.jar"]

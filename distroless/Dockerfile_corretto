@@ -1,0 +1,6 @@
+FROM amazoncorretto:21.0.9-al2023
+WORKDIR /deployments
+ARG JAR_FILE=build/libs/distroless.jar
+COPY ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
