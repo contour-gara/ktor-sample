@@ -46,16 +46,18 @@ class MyException() : RuntimeException("throw by /my-exception")
 fun Application.createGlobalExceptionHandler() {
     install(StatusPages) {
         exception<Throwable> { call, cause ->
-            when (cause) {
-                is MyException -> {
-                    call.application.environment.log.warn(cause.message?: "Exception of type ${cause::class}", cause)
-                    call.respondText(status = HttpStatusCode.BadRequest, text = cause.message ?: "")
-                }
-                else -> {
-                    call.application.environment.log.error(cause)
-                    call.respondText(status = HttpStatusCode.InternalServerError, text = cause.message ?: "")
-                }
-            }
+            call.application.environment.log.error(cause)
+            call.respondText(status = HttpStatusCode.InternalServerError, text = "")
+        }
+
+        exception<RuntimeException> { call, cause ->
+            call.application.environment.log.error(cause)
+            call.respondText(status = HttpStatusCode.InternalServerError, text = cause.message ?: "")
+        }
+
+        exception<MyException> { call, cause ->
+            call.application.environment.log.warn(cause.message?: "Exception of type ${cause::class}", cause)
+            call.respondText(status = HttpStatusCode.BadRequest, text = cause.message ?: "")
         }
     }
 }
