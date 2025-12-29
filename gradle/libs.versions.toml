@@ -10,6 +10,7 @@ mockk = "1.14.6"
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty" }
 ktor-server-config-yaml = { module = "io.ktor:ktor-server-config-yaml" }
+ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }

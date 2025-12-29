@@ -15,6 +15,7 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.config.yaml)
+    implementation(libs.ktor.server.call.logging)
     implementation(libs.logback.classic)
     testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.kotest.extensions.ktor)
