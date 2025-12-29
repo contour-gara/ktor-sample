@@ -16,7 +16,7 @@ logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "lo
 
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-extensions-ktor = { module = "io.kotest:kotest-assertions-ktor", version.ref = "kotest" }
-ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+ktor-server-test-host = { module = "io.ktor:ktor-server-test-host" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [plugins]
