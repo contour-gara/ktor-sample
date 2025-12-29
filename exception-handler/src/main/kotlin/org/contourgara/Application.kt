@@ -19,25 +19,43 @@ fun Application.module() {
         level = Level.DEBUG
     }
 
-    install(StatusPages) {
-        exception<Throwable> { call, cause ->
-            if (cause is RuntimeException) {
-                call.application.environment.log.error(cause)
-                call.respondText(status = HttpStatusCode.BadRequest, text = cause.message ?: "")
-            } else {
-                call.application.environment.log.error(cause)
-                call.respondText(status = HttpStatusCode.InternalServerError, text = cause.message ?: "")
-            }
-        }
-    }
-
     routing {
         get("/") {
             call.respondText { "Hello!" }
         }
+    }
+
+    createExceptionRoute()
+    createGlobalExceptionHandler()
+}
+
+fun Application.createExceptionRoute() {
+    routing {
+        get("/my-exception") {
+            throw MyException()
+        }
 
         get("/exception") {
             throw RuntimeException("throw by /exception")
+        }
+    }
+}
+
+class MyException() : RuntimeException("throw by /my-exception")
+
+fun Application.createGlobalExceptionHandler() {
+    install(StatusPages) {
+        exception<Throwable> { call, cause ->
+            when (cause) {
+                is MyException -> {
+                    call.application.environment.log.warn(cause.message?: "Exception of type ${cause::class}", cause)
+                    call.respondText(status = HttpStatusCode.BadRequest, text = cause.message ?: "")
+                }
+                else -> {
+                    call.application.environment.log.error(cause)
+                    call.respondText(status = HttpStatusCode.InternalServerError, text = cause.message ?: "")
+                }
+            }
         }
     }
 }
