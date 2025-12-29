@@ -47,7 +47,7 @@ fun Application.createGlobalExceptionHandler() {
     install(StatusPages) {
         exception<Throwable> { call, cause ->
             call.application.environment.log.error(cause)
-            call.respondText(status = HttpStatusCode.InternalServerError, text = "")
+            call.respondText(status = HttpStatusCode.InternalServerError, text = "default handler")
         }
 
         exception<RuntimeException> { call, cause ->
