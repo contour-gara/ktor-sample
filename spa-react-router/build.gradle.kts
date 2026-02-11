@@ -39,3 +39,21 @@ application {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.register("buildFrontend", Exec::class.java) {
+    workingDir = File("frontend")
+    executable = "sh"
+    args("-c", "npm run build")
+}
+
+tasks.processResources {
+    mustRunAfter("buildFrontend")
+}
+
+tasks.run {
+    dependsOn("buildFrontend")
+}
+
+tasks.build {
+    dependsOn("buildFrontend")
+}
