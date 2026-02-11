@@ -22,6 +22,14 @@ fun Application.module() {
             call.respondText { "Hello!" }
         }
 
+        // コメントアウトしている場合、/about にリクエストすると SPA の about が返る
+        // コメントアウトしている場合、/test のような定義していない path にリクエストすると、SPA が返るが、"No routes matched location "/test"" とブラウザのコンソールに出る
+        // コメントアウトしていない場合、/about にリクエストすると Ktor の about が返る
+        // コメントアウトしていない場合、/ にリクエストすると SPA の about が返る
+        get(path = "/about") {
+            call.respondText { "about" }
+        }
+
         singlePageApplication {
             useResources = true
             filesPath = "frontend"
