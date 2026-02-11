@@ -2,6 +2,7 @@ package org.contourgara
 
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
+import io.ktor.server.http.content.singlePageApplication
 import io.ktor.server.netty.EngineMain
 import io.ktor.server.plugins.calllogging.CallLogging
 import io.ktor.server.response.respondText
@@ -19,6 +20,12 @@ fun Application.module() {
     routing {
         get(path = "/health") {
             call.respondText { "Hello!" }
+        }
+
+        singlePageApplication {
+            useResources = true
+            filesPath = "frontend"
+            defaultPage = "index.html"
         }
     }
 }
