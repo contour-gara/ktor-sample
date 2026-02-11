@@ -43,7 +43,7 @@ tasks.test {
 tasks.register("buildFrontend", Exec::class.java) {
     workingDir = File("frontend")
     executable = "sh"
-    args("-c", "npm run build")
+    args("-c", "npm install && npm run build")
 }
 
 tasks.processResources {
